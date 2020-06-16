@@ -1,28 +1,201 @@
 <!DOCTYPE html>
-<html>
+
+
+<link rel="stylesheet" type="text/css" href="leaflet.css"> 
+<title>Projet WEB</title>
+<script src="leaflet.js"></script>
+<link rel="stylesheet" type="text/css" href="style.css">
+<!-- <style>
+.leaflet-default-icon-path {
+  background-image: url(images/marker-icon-green.png);
+  }
+</style> -->
+
+<meta charset="utf-8">
+
 <head>
-	<title>
-		Mon premier serveur
-	</title>
+<link href="https://fonts.googleapis.com/css?family=Assistant&display=swap" rel="stylesheet">
 </head>
-<body>
 
-<h1> Hello les gens</h1>
-<p> C'est diablox9</p>
+<!-- Récupération de la liste des pays au chargement de la page -->
+<body onload="load_data();" onKeyPress="if (event.keyCode == 13) envoiformulaire()">
+
+<nav>
+	<h1>Carte interactive de l'Afrique</h1>
+</nav>
+
+<main>
+<div style="width: 100%; overflow: hidden;">
+		
+		<div id="map" style="margin-bottom:1.33em; float: left;">
+		</div >
+			 
 
 
-<p>ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <div id = 'window_recherche' class = 'fenetre'>
+        
 
-<form action="/service" method="POST">
-<label>Nom: <input name="Nom"></label><br> 
-<label>Prénom: <input name="Prenom"></label><br>
-<input type="submit" value="Envoyer">
-</form>
+      </div>
+			<div id='window' style = 'margin-left:70%; width :10%;'>
+		     <fieldset id='country_data'>
+		       <legend style = 'color:#dc143c;'>Informations sur le pays</legend>
+		       <img id='drapeau' alt='Non trouvée' draggable = "true"/>
+		       <div>
+		         <span><b>Nom : </b></span><span id='country_name'></span>
+		         <br>
+             <span><b>Leader : </b></span><span id='leader'></span>
+             <br>
+		         <span><b>Capitale : </b></span><span id='capital'></span>
+		         <br>
+		         <button id="demandeinfo">+ d'infos</button>
+		         <div id='moreinfo'>
+		         <span><b>Latitude : </b></span><span id='latitude'></span>
+		         <br>
+		         <span><b>Longitude : </b></span><span id='longitude'></span>
+		         <br>
+		         <span><b>Population : </b></span><span id='pop'></span>
+		         <br>
+		         <span><b>Indice Téléphonique : </b></span><span id='ccode'></span>
+		         <br>
+		         <span><b>PIB : </b></span><span id='PIB'></span>
+		         <br>
+		         <span><b>Monnaie : </b></span><span id='monnaie'></span>
+		         <br>
+		         <a target = "_blank" id = "wp"></a>
+		         <br>
+		         <button id='lessinfo'>- d'infos</button>
+		        </div>
+		     </fieldset>
+		    </div>
 
+
+</div>
+</main>
 </body>
-</html>
+
+ 
+ <script>
+
+document.getElementById('demandeinfo').addEventListener('click',showinfo);
+document.getElementById('lessinfo').addEventListener('click',hideinfo);
+
+
+// Création d'une carte dans la balise div "map",
+// et position de la vue sur un point donné et un niveau de zoom
+var map = L.map('map').setView([45,70], 2);
+
+// Ajout d'une couche de dalles OpenStreetMap
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+     }).addTo(map);
+
+//Crétion de 2 types d'icones de marqueur (un jaune et un par défaut)
+var yellow_icon = L.icon({
+    iconUrl: 'images/marker-icon-yellow.png',
+    iconAnchor: [12,41],
+  popupAnchor: [0,-32],
+    shadowUrl: 'images/marker-shadow.png',
+    shadowAnchor: [12,41]
+});
+
+var default_icon = L.icon({
+    iconUrl: 'images/marker-icon.png',
+    iconAnchor: [12,41],
+  popupAnchor: [0,-32],
+    shadowUrl: 'images/marker-shadow.png',
+    shadowAnchor: [12,41]
+});
+
+//Liste des marqueurs
+var markers = [];
+var marker;
+
+function showinfo() {
+  window.moreinfo.style.display = 'block';
+  window.demandeinfo.style.display = 'none';
+  window.lessinfo.style.display = 'block';
+}
+function hideinfo() {
+  window.moreinfo.style.display = 'none';
+  window.demandeinfo.style.display = 'block';
+  window.lessinfo.style.display = 'none';
+}
+
+
+// Fonction appelée au chargement de la page
+function load_data () {
+
+  // objet pour l'envoi d'une requête Ajax
+  var xhr = new XMLHttpRequest();
+
+  // fonction appelée lorsque la réponse à la requête (liste des lieux insolites) sera arrivée
+  xhr.onload = function() {
+
+    // transformation des données renvoyées par le serveur
+    // responseText est du type string, data est une liste
+    var data = JSON.parse(this.responseText);
+
+    // boucle sur les lieux
+    for ( n = 0; n < data.length; n++ ) {
+      // insertion d'un marqueur à la position du lieu,
+      // attachement d'une popup, capture de l'événement 'clic'
+      // ajout d'une propriété personnalisée au marqueur
+    marker = L.marker([data[n].lat,data[n].lon], riseOnHover=true);
+      marker.addTo(map)
+       .bindPopup(data[n].name)
+       .addEventListener('click',OnMarkerClick)
+       .idnum = data[n].wp;
+    markers[n] = marker;
+
+    }
+  };
+
+  // Envoi de la requête Ajax pour la récupération de la liste des lieux insolites
+  xhr.open('GET','/countries',true);
+  xhr.send();
+}
+
+// Fonction appelée lors d'un clic sur un marqueur
+function OnMarkerClick (e) {
+
+   var xhr = new XMLHttpRequest(); 
+   // requête au serveur
+   xhr.open('GET','/country/'+e.target.idnum,true);
+  
+   // fonction callback
+   xhr.onload = function() {
+   // récupération des informations au format json
+     if ( this.status == 200 ) {
+       var data = JSON.parse(this.responseText);
+       window.country_data.style.display = 'block';
+     hideinfo();
+       window.country_name.textContent = data.name;
+       window.capital.textContent = data.capital;
+       window.latitude.textContent = data.latitude.toFixed(3);
+       window.longitude.textContent = data.longitude.toFixed(3);
+       window.pop.textContent = data.pop;
+       window.ccode.textContent = data.ccode;
+     window.drapeau.src = data.drapeau;
+       window.PIB.textContent= data.PIB;
+       window.monnaie.textContent=data.monnaie;
+       window.leader.textContent = data.leader;
+       window.wp.textContent = 'https://en.wikipedia.org/wiki/'+data.wp;
+       window.wp.href = 'https://en.wikipedia.org/wiki/'+data.wp;
+     }
+     // affichage d'un message d'erreur
+     else {
+        window.country_data.style.display = 'none';
+        window.error_msg.innerHTML = this.statusText;
+     }
+  };
+  xhr.send();
+  
+  //Affichage du pays en surbrillance
+  for (var i = 0; i<markers.length; i++) { markers[i].setIcon(default_icon); }
+  e.target.setIcon(yellow_icon);
+}
+
+function convertRad(input){return (Math.PI*input)/180;}
+
+ 
+</script>

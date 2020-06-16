@@ -1,0 +1,130 @@
+﻿/* fond de page */
+body {
+/* Seagreen */
+  background: linear-gradient(#ffd700, #006400);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  color: white;
+  height: 100vh;
+  margin: 0;
+  /* pour éviter l'ascenseur */
+  border: 1px solid transparent;
+  box-sizing: border-box;
+}
+
+/* bandeau de titre */
+h1 { 
+  color:  #dc143c;
+  text-align: center;;
+  font-size: 300%;
+  border: none;
+  box-shadow: none;
+  background-color: rgba(255,255,255,0.3);
+  border-top: 3px solid rgba(255,255,255,0.6);
+  border-bottom: 3px solid rgba(255,255,255,0.6);
+  text-shadow: 3px 0px 3px black;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+/* contenu de la page */
+body > * {   padding-left: 10px; }
+
+/* polices de caractères */
+body { font-family: Calibri, sans-serif; }
+
+/* positionnement des champs */
+label { display: block; }
+label span { display: inline-block; width: 5em; height: 1.5em; }
+
+a.delete:hover {
+  color: red;
+}
+
+legend {
+  font-size: 150%;
+  font-weight: bold;
+  font-family: 'Assistant', sans-serif;
+  color: DarkSlateGray;
+}
+
+fieldset {
+  border: 2px outset black;
+  border-radius: 3px;
+  box-shadow: 5px 5px 3px black;
+  font-size: 150%;
+  background-color: #006400;
+  color: #ffd700;
+}
+
+table {
+  margin-border: 2em;
+}
+
+span[id=country_name] {
+  font-size: 120%;
+  color: black;
+}
+
+button {
+  width:110px;
+  padding:6px 0 6px 0;
+  font:Bold 13px Arial;
+  background:#d34836;
+  color:#fff;
+  border-radius:4px;
+  border:none;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:hover {
+  background:red;
+  box-shadow: 0 0 10px black;
+  transition: all 0.3s ease 0s;
+}
+.fenetre {
+
+margin-left:70%;
+}
+a.delete:hover {
+  color: red;
+}
+#map { 
+  height: 70vh; 
+  width: 60vw; 
+  border: 3px solid black;
+}
+#country_data {
+  width:500px;
+  position: fixed;
+  top: 20%;
+}
+#selectchoice_field {
+  width: 200px;
+  position: fixed;
+  top: 14%;
+  right: 2%;
+  text-align: : center;
+  color: DarkSlateGrey;
+
+}
+#select_type {
+  margin: 3px;
+  background: White;
+  border: 3px black;
+  border-radius: 0.3%;
+  color: DarkSlateGrey;
+
+
+}
+#pays_select_field {
+  width: 200px;
+  position: fixed;
+  top: 27%;
+  right: 2%;
+  text-align: center;
+  margin: 0.3%;
+  font-size: 150%;
+  color: DarkSlateGrey;
