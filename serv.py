@@ -10,13 +10,10 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
   # sous-répertoire racine des documents statiques
   static_dir = '/client'
 
-  # version du serveur
-  server_version = 'Version_finale.py/0.1'
-
   # on surcharge la méthode qui traite les requêtes GET
   def do_GET(self):
     self.init_params()
-
+    self.path = self.static_dir + self.path
     # requete location - retourne la liste de lieux et leurs coordonnées géogrpahiques
     if self.path_info[0] == 'countries':
         self.send_countries()
@@ -116,12 +113,11 @@ class RequestHandler(http.server.SimpleHTTPRequestHandler):
       attributs["latitude"] = r['latitude']
       attributs["longitude"] = r['longitude']
       attributs["wp"] = country
-      attributs["pop"] = str(r['population'])+" hab."
-      attributs["ccode"] = r['ccode']
-      attributs["drapeau"] = 'flags/' + r['flag']
+      attributs["photo_name"] = 'web_photo/' + r['photo_name']
+      attributs["ccode"] = r['calling_code']
+      attributs["drapeau"] = 'flags/' + r['flag_name']
       attributs["monnaie"] = currency_modify(r['currency'])
-      attributs["PIB"]= r['GDP']
-      attributs["leader"] = r['lead_title'] + ' ' + r['lead_name']
+      attributs["leader"] = r['leader_title1'] + ' ' + r['leader_name1']
 
       body = json.dumps(attributs)
       
@@ -155,7 +151,7 @@ def currency_modify(curr):
 #
 # Ouverture d'une connexion avec la base de données
 #
-conn = sqlite3.connect('countriesAfrica.db')
+conn = sqlite3.connect('pays.sqlite')
 
 # Pour accéder au résultat des requêtes sous forme d'un dictionnaire
 conn.row_factory = sqlite3.Row
