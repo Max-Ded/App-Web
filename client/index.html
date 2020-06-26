@@ -1,63 +1,56 @@
 <!DOCTYPE html>
 
-<link rel="stylesheet" type="text/css" href="style.css">
-<link rel="stylesheet" type="text/css" href="leaflet.css"> 
-<title>Projet WEB</title>
-<script src="leaflet.js"></script>
-
-<!-- <style>
-.leaflet-default-icon-path {
-  background-image: url(images/marker-icon-green.png);
-  }
-</style> -->
-
 <meta charset="utf-8">
 
 <head>
-<link href="https://fonts.googleapis.com/css?family=Assistant&display=swap" rel="stylesheet">
+  <title>Projet WEB</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="leaflet.css"> 
+  <script src="leaflet.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 
 <!-- Récupération de la liste des pays au chargement de la page -->
 <body onload="load_data();" onKeyPress="if (event.keyCode == 13) envoiformulaire()">
 
-<nav>
-	<h1>CARTE DU MONDE INTERACTIVE</h1>
-</nav>
+
+<h1>CARTE DU MONDE INTERACTIVE</h1>
+
 
 <main>
 <div style="width: 100%; overflow: hidden;">
-		
-		<div id="map" style="margin-bottom:1.33em; float: left;"></div>
+    
+    <div id='map'></div>
 
-			<div id='window' style = 'margin-left:65%; width :10%;'>
-		     <fieldset id='country_data'>
-		       <legend style="color:#dc143c;background-color:#006400;border-radius: 25px;border-top:2px solid #000000;">INFORMATION SUR LE PAYS></legend>
-		       <img id='drapeau' alt='Non trouvée' draggable = "true"/>
-		       <div>
-		         <span><b>Nom : </b></span><span id='country_name'></span>
-		         <br>
+      <div id='window'>
+         <fieldset id='country_data'>
+           <legend>INFORMATION SUR LE PAYS</legend>
+           <img id='drapeau' alt='Non trouvée' draggable = "true"/>
+           <div>
+             <span><b>Pays : </b></span><span id='country_name'></span>
+             <br>
              <span><b>Leader : </b></span><span id='leader'></span>
              <br>
-		         <span><b>Capitale : </b></span><span id='capital'></span>
-		         <br>
-		         <button id="demandeinfo">+ d'infos</button>
-		         <div id='moreinfo'>
-		         <span><b>Latitude : </b></span><span id='latitude'></span>
-		         <br>
-		         <span><b>Longitude : </b></span><span id='longitude'></span>
-		         <br>
-		         <span><b>Indice Téléphonique : </b></span><span id='ccode'></span>
-		         <br>
-		         <span><b>Monnaie : </b></span><span id='monnaie'></span>
-		         <br>
+             <span><b>Capitale : </b></span><span id='capital'></span>
+             <br>
+             <button id="demandeinfo">+ d'infos</button>
+             <div id='moreinfo'>
+             <span><b>Latitude : </b></span><span id='latitude'></span>
+             <br>
+             <span><b>Longitude : </b></span><span id='longitude'></span>
+             <br>
+             <span><b>Indice Téléphonique : </b></span><span id='ccode'></span>
+             <br>
+             <span><b>Monnaie : </b></span><span id='monnaie'></span>
+             <br>
              <img id='photo' alt='Non trouvée' draggable = "true" class="center"/>
              <br>
-		         <a target = "_blank" id = "wp"></a>
-		         <br>
-		         <button id='lessinfo'>- d'infos</button>
-		        </div>
-		     </fieldset>
-		    </div>
+             <a target = "_blank" id = "wp"></a>
+             <br>
+             <button id='lessinfo'>- d'infos</button>
+            </div>
+         </fieldset>
+        </div>
 
 
 </div>

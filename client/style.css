@@ -1,7 +1,7 @@
 ﻿/* fond de page */
 body {
 /* Seagreen */
-  background: linear-gradient(#ffd700, #006400);
+  background-color: #022140;
   background-size: 100%;
   background-repeat: no-repeat;
   color: white;
@@ -14,24 +14,24 @@ body {
 
 /* bandeau de titre */
 h1 { 
-  color:  #dc143c;
-  text-align: center;;
+  color: white;
+  text-align: center;
+  font-family: 'Lato', black-900;
   font-size: 300%;
   border: none;
   box-shadow: none;
-  background-color: rgba(255,255,255,0.3);
-  border-top: 3px solid rgba(255,255,255,0.6);
-  border-bottom: 3px solid rgba(255,255,255,0.6);
+  border-bottom: 1px solid white;
   text-shadow: 3px 0px 3px black;
   padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-bottom: 0.3em;
+  margin-top: 0.4em;
+  margin-bottom: 0.4em;
+  margin-right: 3em;
+  margin-left: 3em;
 }
 
 /* contenu de la page */
 body > * {   padding-left: 10px; }
-
-/* polices de caractères */
-body { font-family: Calibri, sans-serif; }
 
 /* positionnement des champs */
 label { display: block; }
@@ -42,19 +42,27 @@ a.delete:hover {
 }
 
 legend {
+  margin-left: 0.05em;
+  margin-right: 0.05em;
+  padding-left: 2%;
+  padding-right: 2%;
   font-size: 150%;
   font-weight: bold;
-  font-family: 'Assistant', sans-serif;
-  
+  font-family: 'Lato', bold-700;
+  color: white;
+  background-color: #022140;
+  border-radius: 5px;
+  border: 3px solid #000000; 
 }
 
 fieldset {
   border: 2px outset black;
   border-radius: 3px;
   box-shadow: 5px 5px 3px black;
-  font-size: 150%;
-  background-color: #006400;
-  color: #ffd700;
+  font-size: 120%;
+  font-family: 'Lato', bold-700;
+  background-color: #265077;
+  color: #c5c6c7;
 }
 
 table {
@@ -69,9 +77,7 @@ span[id=country_name] {
 button {
   width:110px;
   padding:6px 0 6px 0;
-  font:Bold 13px Arial;
-  background:#d34836;
-  color:#fff;
+  background:#2d6f6d;
   border-radius:4px;
   border:none;
   transition: all 0.3s ease 0s;
@@ -80,7 +86,7 @@ button {
 }
 
 button:hover {
-  background:red;
+  background:#2d4f4d;
   box-shadow: 0 0 10px black;
   transition: all 0.3s ease 0s;
 }
@@ -88,10 +94,14 @@ button:hover {
 a.delete:hover {
   color: red;
 }
-#map { 
-  height: 70vh; 
-  width: 60vw; 
-  border: 3px solid black;
+#map {
+  position: absolute;
+  z-index: 2;
+  margin-bottom: 1.33em;
+  float: left;
+  height: 80vh;
+  width: 98vw;
+  border: 3px solid black;*/
 }
 #country_data {
   width:500px;
@@ -104,4 +114,10 @@ a.delete:hover {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+#window{
+  position:absolute;
+  z-index: 8;
+  margin-left:69%;
+  width :10%;
 }
